@@ -1,4 +1,15 @@
 {
+  "name": "krizos/docrine-notorm-collection",
+  "description": "Library to create Doctrine collections from NotORM results.",
+  "keywords": ["doctrine", "notorm", "collection"],
+  "homepage": "https://github.com/mnohosten/doctrine-notorm-collection",
+  "license": ["MIT"],
+  "authors": [
+    {
+      "name": "Martin Krizan",
+      "homepage": "http://www.martinkrizan.com/"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Krizos\\Doctrine\\Colletions\\NotORM\\": "src/"
