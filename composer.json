@@ -1,0 +1,15 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Krizos\\Doctrine\\Colletions\\NotORM\\": "src/"
+    }
+  },
+  "require": {
+    "doctrine/collections": "^1.5",
+    "vrana/notorm": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7",
+    "fzaninotto/faker": "^1.6"
+  }
+}
