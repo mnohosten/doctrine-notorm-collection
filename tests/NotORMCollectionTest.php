@@ -5,6 +5,24 @@ use Krizos\Doctrine\Colletions\NotORM\NotORMCollection;
 class NotORMCollectionTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testSlice()
+    {
+        $collection = $this->collection();
+        $this->add(5, $collection);
+        $offset = 0;
+        $limit = 2;
+        do {
+            if($collection->count() <= $offset) break;
+            $chunk = $collection->slice($offset, $limit);
+            $this->assertInstanceOf(
+                NotORMCollection::class,
+                $chunk
+            );
+            $this->assertEquals($limit, $chunk->count());
+            $offset += $limit;
+        } while($chunk->count());
+    }
+
     public function testFirst()
     {
         $collection = new NotORMCollection(
@@ -147,7 +165,7 @@ class NotORMCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $collection->count());
         $this->assertFalse($collection->isEmpty());
         $collection->clear();
-        $this->assertFalse($collection->isEmpty());
+        $this->assertTrue($collection->isEmpty());
     }
 
     public function testContains()
@@ -194,7 +212,7 @@ class NotORMCollectionTest extends PHPUnit_Framework_TestCase
         }
         $notORM = new NotORM($pdo);
         $notORM->debug = function ($sql, $args) {
-            echo $sql . PHP_EOL;
+//            echo $sql . PHP_EOL;
         };
         return $notORM;
     }
@@ -206,7 +224,7 @@ class NotORMCollectionTest extends PHPUnit_Framework_TestCase
     private function addToCollection($collection)
     {
         $faker = \Faker\Factory::create('cz_CZ');
-        $title = $faker->words(5, true);
+        $title = $faker->words(2, true);
         $new = [
             'author_id' => 13,
             'maintainer_id' => 13,

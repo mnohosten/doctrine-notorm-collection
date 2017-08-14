@@ -265,7 +265,13 @@ class NotORMCollection implements Collection
      */
     public function slice($offset, $length = null)
     {
-        return $this->result->limit($length, $offset);
+        $clone = clone $this->result;
+        $clone->limit($length, $offset);
+        $clone->rewind();
+        return new self(
+            $clone,
+            $this->map
+        );
     }
 
     /**
@@ -313,7 +319,7 @@ class NotORMCollection implements Collection
      */
     public function count()
     {
-        return $this->result->count('*');
+        return $this->result->count();
     }
 
 }
