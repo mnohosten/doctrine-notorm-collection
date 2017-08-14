@@ -5,6 +5,22 @@ use Krizos\Doctrine\Colletions\NotORM\NotORMCollection;
 class NotORMCollectionTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testFirst()
+    {
+        $collection = new NotORMCollection(
+            $this->notorm()->application(),
+            function($row) {
+                return [
+                    'id' => $row['id'],
+                    'title' => $row['title'],
+                ];
+            }
+        );
+        $first = $collection->first();
+        $this->assertInternalType('array', $first);
+        $this->assertCount(2, $first);
+    }
+
     public function testIndexOf()
     {
         $collection = $this->collection();

@@ -4,6 +4,7 @@ namespace Krizos\Doctrine\Colletions\NotORM;
 
 use Doctrine\Common\Collections\Collection;
 use NotORM_Result;
+use NotORM_Row;
 use Closure;
 
 class NotORMCollection implements Collection
@@ -72,7 +73,7 @@ class NotORMCollection implements Collection
         if($row) {
             return $row->delete();
         }
-        throw new RuntimeException(
+        throw new \RuntimeException(
             "Row with key: `{$key}` was not found."
         );
     }
@@ -142,10 +143,10 @@ class NotORMCollection implements Collection
     public function first()
     {
         $this->result->rewind();
-        foreach ($this->result as $item) {
+        foreach ($this as $item) {
             return $item;
         }
-        throw new RuntimeException(
+        throw new \RuntimeException(
             "Collection is empty. It's not possible to obtain first item."
         );
     }
@@ -234,7 +235,7 @@ class NotORMCollection implements Collection
     private function assertResultClass($result)
     {
         if(!$result instanceof NotORM_Result) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 "Mapping clojure must return instance " .
                 "of " . NotORM_Result::class
             );
